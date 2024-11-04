@@ -1,94 +1,62 @@
 package org.example;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
 import java.util.Date;
 
-class Carnet {
-    private Entrenador entrenador;
-    private final LocalDate fechaEmision;
+public class Carnet {
+    private String id;
+    private Date fechaExpedicion;
     private int puntos;
-    private int numVictorias;
+    private int campeonatosGanados;
 
-
-    public Carnet(Entrenador entrenador, LocalDate fechaEmision, int puntos, int numVictorias) {
-        this.entrenador = entrenador;
-        this.fechaEmision = LocalDate.now();
+    // Constructor
+    public Carnet(String id, Date fechaExpedicion, int puntos, int campeonatosGanados) {
+        this.id = id;
+        this.fechaExpedicion = fechaExpedicion;
         this.puntos = puntos;
-        this.numVictorias = numVictorias;
+        this.campeonatosGanados = campeonatosGanados;
     }
 
-    public Entrenador getEntrenador() {
-        return entrenador;
+    // Getters y Setters
+    public String getId() {
+        return id;
     }
 
-    public LocalDate getFechaEmision() {
-        return fechaEmision;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Date getFechaExpedicion() {
+        return fechaExpedicion;
+    }
+
+    public void setFechaExpedicion(Date fechaExpedicion) {
+        this.fechaExpedicion = fechaExpedicion;
     }
 
     public int getPuntos() {
         return puntos;
     }
 
-    public int getNumVictorias() {
-        return numVictorias;
+    public void setPuntos(int puntos) {
+        this.puntos = puntos;
     }
 
-    public void actualizarPuntos(int nuevosPuntos) {
-        this.puntos += nuevosPuntos;
+    public int getCampeonatosGanados() {
+        return campeonatosGanados;
     }
 
-    public void incrementarCampeonatos() {
-        this.numVictorias++;
+    public void setCampeonatosGanados(int campeonatosGanados) {
+        this.campeonatosGanados = campeonatosGanados;
     }
 
-    public void exportarCarnet(Entrenador entrenador) {
-        StringBuilder xmlBuilder = new StringBuilder();
-
-        xmlBuilder.append("<carnet>\n");
-        xmlBuilder.append("  <id>").append(entrenador).append("</id>\n");
-        xmlBuilder.append("  <fechaexp>").append(getFechaEmision()).append("</fechaexp>\n");
-
-        // Entrenador
-        xmlBuilder.append("  <entrenador>\n");
-        xmlBuilder.append("    <nombre>").append(Entrenador.getNombre()).append("</nombre>\n");
-        xmlBuilder.append("    <nacionalidad>").append(Entrenador.getNacionalidad()).append("</nacionalidad>\n");
-        xmlBuilder.append("  </entrenador>\n");
-
-        xmlBuilder.append("  <hoy>").append(LocalDate.now()).append("</hoy>\n");
-        xmlBuilder.append("  <puntos>").append(getPuntos()).append("</puntos>\n");
-
-        // Torneos
-        xmlBuilder.append("  <torneos>\n");
-        for (Torneo torneo : Entrenador.getTorneos()) {
-            xmlBuilder.append("    <torneo>\n");
-            xmlBuilder.append("      <nombre>").append(Torneo.getNombre()).append("</nombre>\n");
-            xmlBuilder.append("      <region>").append(Torneo.getRegion()).append("</region>\n");
-            xmlBuilder.append("      <combates>\n");
-            for (Combate combate : torneo.getCombates()) {
-                xmlBuilder.append("        <combate>\n");
-                xmlBuilder.append("          <id>").append(combate.getId()).append("</id>\n");
-                xmlBuilder.append("          <fecha>").append(combate.getFecha()).append("</fecha>\n");
-                xmlBuilder.append("          <victoria>").append(combate.isVictoria()).append("</victoria>\n");
-                xmlBuilder.append("        </combate>\n");
-            }
-            xmlBuilder.append("      </combates>\n");
-            xmlBuilder.append("    </torneo>\n");
-        }
-        xmlBuilder.append("  </torneos>\n");
-
-        xmlBuilder.append("</carnet>");
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(entrenador.getNombre() + "_carnet.xml"))) {
-            writer.write(xmlBuilder.toString());
-            System.out.println("Carnet exportado correctamente.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    // toString() para impresión de datos del carnet
+    @Override
+    public String toString() {
+        return "Carnet{" +
+                "id='" + id + '\'' +
+                ", fechaExpedicion=" + fechaExpedicion +
+                ", puntos=" + puntos +
+                ", campeonatosGanados=" + campeonatosGanados +
+                '}';
     }
 }
-
 

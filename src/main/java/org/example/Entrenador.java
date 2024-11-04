@@ -1,48 +1,64 @@
 package org.example;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Entrenador {
+        private String id;
 
-    private static int contador = 0;
-    private long id;
+
     private String nombre;
-    private String nacionalidad;
-    private Carnet carnet;
+        private String nacionalidad;
+        private Carnet carnet;
 
-    public Entrenador(long id, String nombre, String nacionalidad) {
-        this.id = contador++;
-        this.nombre = nombre;
-        this.nacionalidad = nacionalidad;
+        // Constructor
+        public Entrenador(String id, String nombre, String nacionalidad, Carnet carnet) {
+            this.id = id;
+            this.nombre = nombre;
+            this.nacionalidad = nacionalidad;
+            this.carnet = carnet;
+        }
+
+        // Getters y Setters
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getNacionalidad() {
+            return nacionalidad;
+        }
+
+        public void setNacionalidad(String nacionalidad) {
+            this.nacionalidad = nacionalidad;
+        }
+
+        public Carnet getCarnet() {
+            return carnet;
+        }
+
+        public void setCarnet(Carnet carnet) {
+            this.carnet = carnet;
+        }
+
+
+        // toString() para impresión de datos del entrenador
+        @Override
+        public String toString() {
+            return "Entrenador{" +
+                    "id='" + id + '\'' +
+                    ", nombre='" + nombre + '\'' +
+                    ", nacionalidad='" + nacionalidad + '\'' +
+                    ", carnet=" + carnet +
+                    '}';
+        }
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    }
-
-
-}

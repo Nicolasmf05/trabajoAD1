@@ -1,81 +1,124 @@
 package org.example;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
-    public class Torneo {
-        private String id;
-        private String nombre;
-        private char region;
-        private List<Entrenador> entrenadores;
-        private List<Combate> combates;
+public class Torneo {
+    private String id;
+    private String nombre;
+    private char region;
+    private int puntosVictoria;
+    private List<Entrenador> participantes;
+    private Entrenador ganador;
 
-        public Torneo(String id, String nombre, char region) {
-            this.id = id;
-            this.nombre = nombre;
-            this.region = region;
-        }
+    // Constructor
+    public Torneo(String id, String nombre, char region, int puntosVictoria) {
+        this.id = id;
+        this.nombre = nombre;
+        this.region = region;
+        this.puntosVictoria = puntosVictoria;
+        this.participantes = new ArrayList<>();  // Inicializamos la lista de participantes vacía
+    }
 
-        public void exportarDatosTorneo(Date fechaInicio, Date fechaFin) {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            String nombreArchivo = nombre + "_datos_torneo.txt";
-
-            LocalDate startDate = fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate endDate = fechaFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-            try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(nombreArchivo), StandardCharsets.UTF_8)) {
-                writer.write("ID Torneo: " + id + "\n");
-                writer.write("Nombre Torneo: " + nombre + "\n");
-                writer.write("Región: " + region + "\n");
-                writer.write("Rango de fechas: " + startDate.format(dtf) + " - " + endDate.format(dtf) + "\n\n");
-
-                // Filtrar combates en el rango de fechas
-                for (Combate combate : combates) {
-                    LocalDate combateFecha = combate.getFecha();
-                    if (!combateFecha.isBefore(startDate) && !combateFecha.isAfter(endDate)) {
-                        writer.write("Combate ID: " + combate.getId() + "\n");
-                        writer.write("Fecha: " + combateFecha.format(dtf) + "\n");
-
-                        Entrenador ganador = combate.getGanador();
-                        writer.write("Ganador: " + (ganador != null ? ganador.getNombre() : "Empate") + "\n");
-
-                        writer.write("Entrenadores participantes:\n");
-                        for (Entrenador entrenador : entrenadores) {
-                            writer.write("- " + entrenador.getNombre() + " (ID: " + entrenador.getId() + ")\n");
-                        }
-                        writer.write("\n");
-                    }
-                }
-                System.out.println("Datos exportados correctamente a " + nombreArchivo);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        public void agregarCombate(Combate combate) {
-            combates.add(combate);
-        }
-
-        public void agregarEntrenador(Entrenador entrenador) {
-            entrenadores.add(entrenador);
-        }
-
-        public List<Combate> getCombates() {
-            return combates;
-        }
-
-        public List<Entrenador> getEntrenadores() {
-            return entrenadores;
+    // Método para agregar un participante al torneo
+    public boolean agregarParticipante(Entrenador entrenador) {
+        if (participantes.size() < 6) {  // Límite de 6 participantes
+            participantes.add(entrenador);
+            return true;  // Participante añadido con éxito
+        } else {
+            System.out.println("El torneo ya tiene el máximo de participantes.");
+            return false;  // No se pudo añadir por límite de participantes
         }
     }
+
+    // Método para asignar un ganador
+    public void asignarGanador(Entrenador entrenador) {
+        if (participantes.contains(entrenador)) {
+            this.ganador = entrenador;
+            System.out.println("Ganador del torneo asignado: " + entrenador.getNombre());
+        } else {
+            System.out.println("El entrenador no participa en este torneo.");
+        }
+    }
+
+    // Método para obtener el ganador
+    public Entrenador obtenerGanador() {
+        return ganador;
+    }
+
+    // Método para verificar si el torneo está completo (tiene 6 participantes)
+    public boolean torneoCompleto() {
+        return participantes.size() == 6;
+    }
+
+    // Método para obtener la lista de participantes
+    public List<Entrenador> obtenerParticipantes() {
+        return participantes;
+    }
+
+    // Método para mostrar información del torneo
+    public void mostrarInformacion() {
+        System.out.println("Torneo ID: " + id);
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Región: " + region);
+        System.out.println("Puntos por victoria: " + puntosVictoria);
+        System.out.println("Participantes: ");
+        for (Entrenador participante : participantes) {
+            System.out.println("- " + participante.getNombre() + " (" + participante.getNacionalidad() + ")");
+        }
+        if (ganador != null) {
+            System.out.println("Ganador: " + ganador.getNombre());
+        } else {
+            System.out.println("Aún no hay un ganador asignado.");
+        }
+
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public char getRegion() {
+        return region;
+    }
+
+    public void setRegion(char region) {
+        this.region = region;
+    }
+
+    public int getPuntosVictoria() {
+        return puntosVictoria;
+    }
+
+    public void setPuntosVictoria(int puntosVictoria) {
+        this.puntosVictoria = puntosVictoria;
+    }
+
+    public List<Entrenador> getParticipantes() {
+        return participantes;
+    }
+
+    public void setParticipantes(List<Entrenador> participantes) {
+        this.participantes = participantes;
+    }
+
+    public Entrenador getGanador() {
+        return ganador;
+    }
+
+    public void setGanador(Entrenador ganador) {
+        this.ganador = ganador;
+    }
 }
+
