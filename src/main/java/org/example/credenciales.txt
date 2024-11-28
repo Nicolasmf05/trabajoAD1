@@ -1,7 +1,4 @@
 admin_general superpass admin_general 000
-usuario1 pass123 torneo 001
-usuario2 pass456 torneo 002
-usuario3 pass789 torneo 003
 usuario4 pass012 entrenador 004
 usuario5 pass345 entrenador 005
 usuario6 pass678 entrenador 006

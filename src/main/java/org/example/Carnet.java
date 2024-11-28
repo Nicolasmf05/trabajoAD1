@@ -1,94 +1,120 @@
 package org.example;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
-class Carnet {
-    private Entrenador entrenador;
-    private final LocalDate fechaEmision;
-    private int puntos;
+/**
+ * Representa un carnet de entrenador, que contiene información sobre el entrenador,
+ * la fecha de expedición, los puntos acumulados y el número de victorias.
+ */
+public class Carnet implements Serializable {
+    // ID único del entrenador
+    private long idEntrenador;
+    // Fecha en la que se expidió el carnet
+    private LocalDate fechaExpedicion;
+    // Puntos acumulados por el entrenador
+    private float puntos;
+    // Número de victorias del entrenador
     private int numVictorias;
 
-
-    public Carnet(Entrenador entrenador, LocalDate fechaEmision, int puntos, int numVictorias) {
-        this.entrenador = entrenador;
-        this.fechaEmision = LocalDate.now();
+    /**
+     * Constructor completo de la clase Carnet.
+     *
+     * @param idEntrenador   ID único del entrenador
+     * @param fechaExpedicion Fecha de expedición del carnet
+     * @param puntos         Puntos acumulados por el entrenador
+     * @param numVictorias   Número de victorias del entrenador
+     */
+    public Carnet(long idEntrenador, LocalDate fechaExpedicion, float puntos, int numVictorias) {
+        this.idEntrenador = idEntrenador;
+        this.fechaExpedicion = fechaExpedicion;
         this.puntos = puntos;
         this.numVictorias = numVictorias;
     }
 
-    public Entrenador getEntrenador() {
-        return entrenador;
+    /**
+     * Constructor parcial de la clase Carnet, sin puntos ni victorias iniciales.
+     *
+     * @param idEntrenador   ID único del entrenador
+     * @param fechaExpedicion Fecha de expedición del carnet
+     */
+    public Carnet(Long idEntrenador, LocalDate fechaExpedicion) {
+        this.idEntrenador = idEntrenador;
+        this.fechaExpedicion = fechaExpedicion;
     }
 
-    public LocalDate getFechaEmision() {
-        return fechaEmision;
+    /**
+     * Obtiene el ID del entrenador.
+     *
+     * @return ID único del entrenador
+     */
+    public long getIdEntrenador() {
+        return idEntrenador;
     }
 
-    public int getPuntos() {
+    /**
+     * Establece el ID del entrenador.
+     *
+     * @param idEntrenador ID único del entrenador
+     */
+    public void setIdEntrenador(long idEntrenador) {
+        this.idEntrenador = idEntrenador;
+    }
+
+    /**
+     * Obtiene la fecha de expedición del carnet.
+     *
+     * @return Fecha de expedición del carnet
+     */
+    public LocalDate getFechaExpedicion() {
+        return fechaExpedicion;
+    }
+
+    /**
+     * Establece la fecha de expedición del carnet.
+     *
+     * @param fechaExpedicion Fecha de expedición del carnet
+     */
+    public void setFechaExpedicion(LocalDate fechaExpedicion) {
+        this.fechaExpedicion = fechaExpedicion;
+    }
+
+    /**
+     * Obtiene los puntos acumulados por el entrenador.
+     *
+     * @return Puntos acumulados
+     */
+    public float getPuntos() {
         return puntos;
     }
 
+    /**
+     * Establece los puntos acumulados por el entrenador.
+     *
+     * @param puntos Puntos acumulados
+     */
+    public void setPuntos(float puntos) {
+        this.puntos = puntos;
+    }
+
+    /**
+     * Obtiene el número de victorias del entrenador.
+     *
+     * @return Número de victorias
+     */
     public int getNumVictorias() {
         return numVictorias;
     }
 
-    public void actualizarPuntos(int nuevosPuntos) {
-        this.puntos += nuevosPuntos;
-    }
-
-    public void incrementarCampeonatos() {
-        this.numVictorias++;
-    }
-
-    public void exportarCarnet(Entrenador entrenador) {
-        StringBuilder xmlBuilder = new StringBuilder();
-
-        xmlBuilder.append("<carnet>\n");
-        xmlBuilder.append("  <id>").append(entrenador).append("</id>\n");
-        xmlBuilder.append("  <fechaexp>").append(getFechaEmision()).append("</fechaexp>\n");
-
-        // Entrenador
-        xmlBuilder.append("  <entrenador>\n");
-        xmlBuilder.append("    <nombre>").append(Entrenador.getNombre()).append("</nombre>\n");
-        xmlBuilder.append("    <nacionalidad>").append(Entrenador.getNacionalidad()).append("</nacionalidad>\n");
-        xmlBuilder.append("  </entrenador>\n");
-
-        xmlBuilder.append("  <hoy>").append(LocalDate.now()).append("</hoy>\n");
-        xmlBuilder.append("  <puntos>").append(getPuntos()).append("</puntos>\n");
-
-        // Torneos
-        xmlBuilder.append("  <torneos>\n");
-        for (Torneo torneo : Entrenador.getTorneos()) {
-            xmlBuilder.append("    <torneo>\n");
-            xmlBuilder.append("      <nombre>").append(Torneo.getNombre()).append("</nombre>\n");
-            xmlBuilder.append("      <region>").append(Torneo.getRegion()).append("</region>\n");
-            xmlBuilder.append("      <combates>\n");
-            for (Combate combate : torneo.getCombates()) {
-                xmlBuilder.append("        <combate>\n");
-                xmlBuilder.append("          <id>").append(combate.getId()).append("</id>\n");
-                xmlBuilder.append("          <fecha>").append(combate.getFecha()).append("</fecha>\n");
-                xmlBuilder.append("          <victoria>").append(combate.isVictoria()).append("</victoria>\n");
-                xmlBuilder.append("        </combate>\n");
-            }
-            xmlBuilder.append("      </combates>\n");
-            xmlBuilder.append("    </torneo>\n");
-        }
-        xmlBuilder.append("  </torneos>\n");
-
-        xmlBuilder.append("</carnet>");
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(entrenador.getNombre() + "_carnet.xml"))) {
-            writer.write(xmlBuilder.toString());
-            System.out.println("Carnet exportado correctamente.");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    /**
+     * Establece el número de victorias del entrenador.
+     *
+     * @param numVictorias Número de victorias
+     */
+    public void setNumVictorias(int numVictorias) {
+        this.numVictorias = numVictorias;
     }
 }
+
 
 

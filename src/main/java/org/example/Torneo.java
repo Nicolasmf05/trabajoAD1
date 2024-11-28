@@ -1,81 +1,153 @@
 package org.example;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-    public class Torneo {
-        private String id;
-        private String nombre;
-        private char region;
-        private List<Entrenador> entrenadores;
-        private List<Combate> combates;
+/**
+ * Representa un torneo de entrenadores, con un nombre, región, puntos por victoria,
+ * un responsable y una lista de participantes.
+ */
+public class Torneo implements Serializable {
+    // ID único del torneo
+    private int id;
+    // Nombre del torneo
+    private String nombre;
+    // Código de la región a la que pertenece el torneo
+    private char codRegion;
+    // Puntos otorgados por cada victoria en el torneo
+    private float puntosVictoria;
+    // ID del entrenador responsable del torneo
+    private long idResponsable;
+    // Lista de entrenadores participantes en el torneo
+    private ArrayList<Entrenador> participantes = new ArrayList<>();
 
-        public Torneo(String id, String nombre, char region) {
-            this.id = id;
-            this.nombre = nombre;
-            this.region = region;
-        }
+    /**
+     * Constructor de la clase Torneo.
+     *
+     * @param nombre         Nombre del torneo
+     * @param codRegion      Código de la región del torneo
+     * @param puntosVictoria Puntos asignados por cada victoria
+     */
+    public Torneo(String nombre, char codRegion, float puntosVictoria) {
+        this.nombre = nombre;
+        this.codRegion = codRegion;
+        this.puntosVictoria = puntosVictoria;
+    }
 
-        public void exportarDatosTorneo(Date fechaInicio, Date fechaFin) {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            String nombreArchivo = nombre + "_datos_torneo.txt";
+    /**
+     * Inscribe un entrenador en el torneo.
+     *
+     * @param entrenador El entrenador a inscribir
+     */
+    public void inscribir(Entrenador entrenador) {
+        participantes.add(entrenador);
+    }
 
-            LocalDate startDate = fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            LocalDate endDate = fechaFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    /**
+     * Obtiene el ID del torneo.
+     *
+     * @return ID único del torneo
+     */
+    public long getId() {
+        return id;
+    }
 
-            try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(nombreArchivo), StandardCharsets.UTF_8)) {
-                writer.write("ID Torneo: " + id + "\n");
-                writer.write("Nombre Torneo: " + nombre + "\n");
-                writer.write("Región: " + region + "\n");
-                writer.write("Rango de fechas: " + startDate.format(dtf) + " - " + endDate.format(dtf) + "\n\n");
+    /**
+     * Establece el ID del torneo.
+     *
+     * @param id ID único del torneo
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-                // Filtrar combates en el rango de fechas
-                for (Combate combate : combates) {
-                    LocalDate combateFecha = combate.getFecha();
-                    if (!combateFecha.isBefore(startDate) && !combateFecha.isAfter(endDate)) {
-                        writer.write("Combate ID: " + combate.getId() + "\n");
-                        writer.write("Fecha: " + combateFecha.format(dtf) + "\n");
+    /**
+     * Establece el ID del responsable del torneo.
+     *
+     * @param idResponsable ID del entrenador responsable del torneo
+     */
+    public void setIdResponsable(long idResponsable) {
+        this.idResponsable = idResponsable;
+    }
 
-                        Entrenador ganador = combate.getGanador();
-                        writer.write("Ganador: " + (ganador != null ? ganador.getNombre() : "Empate") + "\n");
+    /**
+     * Obtiene la lista de participantes en el torneo.
+     *
+     * @return Lista de entrenadores participantes
+     */
+    public ArrayList<Entrenador> getParticipantes() {
+        return participantes;
+    }
 
-                        writer.write("Entrenadores participantes:\n");
-                        for (Entrenador entrenador : entrenadores) {
-                            writer.write("- " + entrenador.getNombre() + " (ID: " + entrenador.getId() + ")\n");
-                        }
-                        writer.write("\n");
-                    }
-                }
-                System.out.println("Datos exportados correctamente a " + nombreArchivo);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    /**
+     * Establece la lista de participantes en el torneo.
+     *
+     * @param participantes Lista de entrenadores participantes
+     */
+    public void setParticipantes(ArrayList<Entrenador> participantes) {
+        this.participantes = participantes;
+    }
 
-        public void agregarCombate(Combate combate) {
-            combates.add(combate);
-        }
+    /**
+     * Obtiene el nombre del torneo.
+     *
+     * @return Nombre del torneo
+     */
+    public String getNombre() {
+        return nombre;
+    }
 
-        public void agregarEntrenador(Entrenador entrenador) {
-            entrenadores.add(entrenador);
-        }
+    /**
+     * Establece el nombre del torneo.
+     *
+     * @param nombre Nombre del torneo
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-        public List<Combate> getCombates() {
-            return combates;
-        }
+    /**
+     * Obtiene el ID del responsable del torneo.
+     *
+     * @return ID del entrenador responsable del torneo
+     */
+    public long getIdResponsable() {
+        return idResponsable;
+    }
 
-        public List<Entrenador> getEntrenadores() {
-            return entrenadores;
-        }
+    /**
+     * Obtiene el código de la región del torneo.
+     *
+     * @return Código de la región
+     */
+    public char getCodRegion() {
+        return codRegion;
+    }
+
+    /**
+     * Establece el código de la región del torneo.
+     *
+     * @param codRegion Código de la región
+     */
+    public void setCodRegion(char codRegion) {
+        this.codRegion = codRegion;
+    }
+
+    /**
+     * Obtiene los puntos asignados por cada victoria en el torneo.
+     *
+     * @return Puntos por victoria
+     */
+    public float getPuntosVictoria() {
+        return puntosVictoria;
+    }
+
+    /**
+     * Establece los puntos asignados por cada victoria en el torneo.
+     *
+     * @param puntosVictoria Puntos por victoria
+     */
+    public void setPuntosVictoria(float puntosVictoria) {
+        this.puntosVictoria = puntosVictoria;
     }
 }

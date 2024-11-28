@@ -1,0 +1,6 @@
+admin_general superpass administradorGeneral 000
+a a entrenador 19
+
+b b entrenador 3
+pepe pepe entrenador 4
+sadfasd asdfasdf adminTorneo 5
