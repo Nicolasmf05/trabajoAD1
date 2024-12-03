@@ -1,0 +1,12 @@
+ <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+ <carnet>
+    <id>4</id>
+    <fechaexp>06 11 2024</fechaexp>
+    <entrenador>
+        <nombre>pepe</nombre>
+        <nacionalidad>Desconocida</nacionalidad>
+        <fechaCreacion>06 11 2024</fechaCreacion>
+        <puntos>0</puntos>
+    </entrenador>
+    <torneos/>
+</carnet>

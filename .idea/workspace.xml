@@ -4,21 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ff126d7-d381-4490-85e6-3b96cb095f09" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/credenciales.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Exportar.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/GestorDeContenidos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Nacionalidad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="7ff126d7-d381-4490-85e6-3b96cb095f09" name="Changes" comment="Parte de lo del torneo">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/dao/EntrenadorDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/dao/EntrenadorDAOImple.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/dao/TorneoDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/dao/TorneoDAOImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/dto/CombatDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/dto/EntrenadorDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/dto/LicenseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/db/dto/TournamentDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Autenticacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Autenticacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Carnet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Carnet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Combate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Combate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Entrenador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Entrenador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Torneo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Torneo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/credenciales.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/credenciales.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/mvn.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/bin/mvn.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/mvnDebug.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/bin/mvnDebug.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +32,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -94,12 +93,17 @@
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.importing&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\nicolas.mejia\Desktop\Tarea1AccesoADatos" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\nicol\Desktop\Tarea1AD_Nicolas-Mejia-Fernandez\src\main\java\org\db\dto" />
+      <recent name="C:\Users\nicol\Desktop\Tarea1AD_Nicolas-Mejia-Fernandez\src\main\java\org\db\dao\services" />
+      <recent name="C:\Users\nicol\Desktop\Tarea1AD_Nicolas-Mejia-Fernandez\src\main\java\org\db\dao\interfaces" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -111,6 +115,15 @@
       <option name="presentableId" value="Default" />
       <updated>1729606326782</updated>
     </task>
+    <task id="LOCAL-00001" summary="Parte de lo del torneo">
+      <option name="closed" value="true" />
+      <created>1732809616433</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732809616433</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,5 +136,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Parte de lo del torneo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Parte de lo del torneo" />
   </component>
 </project>
